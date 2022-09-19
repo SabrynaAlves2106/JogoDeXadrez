@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tabuleiro;
 
 namespace ConsoleApp1
 {
@@ -10,7 +11,9 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello word!");
+            Posicao p;
+            p = new Posicao(3, 4);
+            Console.WriteLine(p.ToString());
         }
     }
 }

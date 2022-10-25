@@ -38,8 +38,11 @@ namespace ConsoleApp1
 
                     Console.WriteLine(e.Message);
                     Console.ReadLine();
+                
                 }
             }
+            Console.Clear();
+            Tela.ImprimirPartida(partidaDeXadrez);
         }
     }
 }

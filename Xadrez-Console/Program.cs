@@ -19,9 +19,8 @@ namespace ConsoleApp1
                 try
                 {
                     Console.Clear();
-                    Tela.ImprimirTabuleiro(partidaDeXadrez.tab);
-                    Console.WriteLine("\nTurno: " + partidaDeXadrez.Turno);
-                    Console.WriteLine("Aguardando jogada: " + partidaDeXadrez.JogadorAtual);
+                    Tela.ImprimirPartida(partidaDeXadrez);
+
                     Console.Write("Origem: ");
                     Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
                     partidaDeXadrez.ValidarPosicaoOrigem(origem);
@@ -31,13 +30,14 @@ namespace ConsoleApp1
                     Console.Write("Destino: ");
                     Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
                     partidaDeXadrez.validarPosicaodeDestino(origem, destino);
-                    partidaDeXadrez.ExecutaMovimento(origem, destino);
+                    partidaDeXadrez.RealizaJogada(origem, destino);
 
                 }
                 catch (TabuleiroException e)
                 {
 
                     Console.WriteLine(e.Message);
+                    Console.ReadLine();
                 }
             }
         }

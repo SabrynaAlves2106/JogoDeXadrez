@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tabuleiro;
+using xadrez;
+using Xadrez_Console;
 
 namespace ConsoleApp1
 {
@@ -11,9 +13,33 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Posicao p;
-            p = new Posicao(3, 4);
-            Console.WriteLine(p.ToString());
+            PartidaDeXadrez partidaDeXadrez = new PartidaDeXadrez();
+            while (!partidaDeXadrez.terminada)
+            {
+                try
+                {
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(partidaDeXadrez.tab);
+                    Console.WriteLine("\nTurno: " + partidaDeXadrez.Turno);
+                    Console.WriteLine("Aguardando jogada: " + partidaDeXadrez.JogadorAtual);
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().toPosicao();
+                    partidaDeXadrez.ValidarPosicaoOrigem(origem);
+                    bool[,] posicoesPossiveis = partidaDeXadrez.tab.Peca(origem).movimentosPossiveis();
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(partidaDeXadrez.tab, posicoesPossiveis);
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.LerPosicaoXadrez().toPosicao();
+                    partidaDeXadrez.validarPosicaodeDestino(origem, destino);
+                    partidaDeXadrez.ExecutaMovimento(origem, destino);
+
+                }
+                catch (TabuleiroException e)
+                {
+
+                    Console.WriteLine(e.Message);
+                }
+            }
         }
     }
 }

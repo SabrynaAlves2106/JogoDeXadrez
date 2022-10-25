@@ -4,7 +4,10 @@ namespace xadrez
 {
     class Rei:Peca 
     {
-        public Rei(Cor cor ,Tabuleiro tab) : base(cor,  tab) { }
+        private PartidaDeXadrez partida;
+        public Rei(Cor cor ,Tabuleiro tab,PartidaDeXadrez partida) : base(cor,  tab) {
+            this.partida = partida;
+        }
 
         public override string ToString()
         {
@@ -62,8 +65,40 @@ namespace xadrez
             {
                 mat[pos.Linha, pos.Coluna] = true;
             }
+            // jogadaEspecial roque
+            if(qtdMovimento == 0 && !partida.xeque)
+            {
+                Posicao posT1 = new Posicao(posicao.Linha, posicao.Coluna + 3);
+                if (testeTorreParaRoque(posT1))
+                {
+                    Posicao p1 = new Posicao(posicao.Linha, posicao.Coluna + 1);
+                    Posicao p2 = new Posicao(posicao.Linha, posicao.Coluna + 2);
+                    if(tab.Peca(p1)==null && tab.Peca(p2) == null)
+                    {
+                        mat[posicao.Linha, posicao.Coluna+2] = true;
+                    }
+
+                }
+                Posicao posT2 = new Posicao(posicao.Linha, posicao.Coluna - 4);
+                if (testeTorreParaRoque(posT2))
+                {
+                    Posicao p1 = new Posicao(posicao.Linha, posicao.Coluna - 1);
+                    Posicao p2 = new Posicao(posicao.Linha, posicao.Coluna - 2);
+                    Posicao p3 = new Posicao(posicao.Linha, posicao.Coluna - 3);
+
+                    if (tab.Peca(p1) == null && tab.Peca(p2) == null && tab.Peca(p3) == null)
+                    {
+                        mat[posicao.Linha, posicao.Coluna - 2] = true;
+                    }
+
+                }
+            }
             return mat;
         }
-
+        private bool testeTorreParaRoque(Posicao pos)
+        {
+            Peca p = tab.Peca(pos);
+            return p != null && p is Torre && p.cor == cor && p.qtdMovimento == 0;
+        }
     }
 }

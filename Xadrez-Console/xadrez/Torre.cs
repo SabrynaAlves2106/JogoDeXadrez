@@ -44,11 +44,12 @@ namespace xadrez
             pos.definirValores(posicao.Linha, posicao.Coluna+1);
             while (tab.PosicaoValida(pos) && podeMover(pos))
             {
-                mat[pos.Linha, pos.Coluna] = true;
+                
                 if (tab.Peca(pos) != null && tab.Peca(pos).cor != cor)
                 {
                     break;
                 }
+                mat[pos.Linha, pos.Coluna] = true;
                 pos.Coluna = pos.Coluna + 1;
             }
             //Esquerda
